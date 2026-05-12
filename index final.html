@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel4Purpose × IE MBA — Pre-Meeting Form</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-dark:  #1B3A2D;
+    --green-mid:   #2C5F45;
+    --green-light: #E8F0EB;
+    --teal:        #0D9488;
+    --teal-lt:     #CCFBF1;
+    --amber:       #D97706;
+    --amber-lt:    #FEF3C7;
+    --sand:        #F7F3EE;
+    --white:       #FFFFFF;
+    --body:        #374151;
+    --muted:       #6B7280;
+    --border:      #E5E7EB;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--sand);
+    color: var(--body);
+    font-size: 15px;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+
+  /* Top bar */
+  .topbar {
+    background: var(--green-dark);
+    padding: 14px 0;
+    text-align: center;
+  }
+  .topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+  .topbar span {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #A7C4B5;
+  }
+  .topbar-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--teal);
+  }
+
+  /* Hero */
+  .hero {
+    background: var(--green-dark);
+    padding: 56px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 100%, rgba(13,148,136,.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    border: 1px solid rgba(13,148,136,.4);
+    padding: 4px 12px;
+    border-radius: 99px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 5vw, 44px);
+    color: var(--white);
+    line-height: 1.15;
+    max-width: 640px;
+    margin: 0 auto 16px;
+  }
+  .hero p {
+    font-size: 15px;
+    color: #A7C4B5;
+    max-width: 520px;
+    margin: 0 auto 28px;
+    font-weight: 300;
+  }
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #6B9E88;
+  }
+  .hero-meta-item svg { opacity: .7; }
+
+  /* Progress */
+  .progress-wrap {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .progress-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .progress-label {
+    font-size: 12px;
+    color: var(--muted);
+    white-space: nowrap;
+    font-weight: 500;
+  }
+  .progress-bar {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--teal);
+    border-radius: 99px;
+    transition: width .4s ease;
+    width: 0%;
+  }
+  .progress-count {
+    font-size: 12px;
+    color: var(--teal);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* Main content */
+  .main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 40px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1.5px solid var(--green-dark);
+  }
+  .section-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--green-dark);
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--green-dark);
+  }
+  .section-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-left: auto;
+    font-style: italic;
+  }
+
+  /* Question card */
+  .q-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 14px;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .q-card:focus-within {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(13,148,136,.08);
+  }
+  .q-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--green-dark);
+    margin-bottom: 6px;
+    display: block;
+  }
+  .q-hint {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+
+  /* Text inputs */
+  textarea, input[type="text"], input[type="email"] {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--body);
+    background: var(--sand);
+    resize: vertical;
+    outline: none;
+    transition: border-color .2s;
+  }
+  textarea:focus, input[type="text"]:focus, input[type="email"]:focus {
+    border-color: var(--teal);
+    background: var(--white);
+  }
+  textarea { min-height: 80px; }
+
+  /* Radio / checkbox options */
+  .options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .opt-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+    user-select: none;
+  }
+  .opt-item:hover { border-color: var(--teal); background: var(--green-light); }
+  .opt-item input { display: none; }
+  .opt-item.selected {
+    border-color: var(--teal);
+    background: var(--teal-lt);
+  }
+  .opt-check {
+    width: 18px; height: 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: border-color .2s, background .2s;
+  }
+  .opt-item.selected .opt-check {
+    border-color: var(--teal);
+    background: var(--teal);
+  }
+  .opt-check-inner {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--white);
+    opacity: 0;
+    transition: opacity .15s;
+  }
+  .opt-item.selected .opt-check-inner { opacity: 1; }
+  .opt-text { font-size: 14px; color: var(--body); }
+
+  /* Ranking list */
+  .rank-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .rank-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: grab;
+    transition: box-shadow .2s, border-color .2s, transform .15s;
+    user-select: none;
+  }
+  .rank-item:active { cursor: grabbing; }
+  .rank-item.dragging {
+    box-shadow: 0 8px 24px rgba(0,0,0,.12);
+    border-color: var(--teal);
+    transform: scale(1.01);
+    z-index: 10;
+    position: relative;
+  }
+  .rank-item.drag-over {
+    border-color: var(--teal);
+    background: var(--green-light);
+  }
+  .rank-num {
+    width: 26px; height: 26px;
+    border-radius: 6px;
+    background: var(--green-dark);
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background .2s;
+  }
+  .rank-num.top { background: var(--teal); }
+  .rank-num.second { background: var(--green-mid); }
+  .rank-drag {
+    display: flex; flex-direction: column; gap: 3px;
+    margin-left: auto; opacity: .35;
+  }
+  .rank-drag span {
+    display: block; width: 16px; height: 2px;
+    background: var(--body); border-radius: 1px;
+  }
+  .rank-text { font-size: 13.5px; color: var(--body); flex: 1; }
+  .rank-emoji { font-size: 16px; width: 22px; text-align: center; }
+
+  /* Info box */
+  .info-box {
+    background: var(--amber-lt);
+    border: 1px solid #FDE68A;
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .info-box-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .info-box p { font-size: 13px; color: #92400E; line-height: 1.55; }
+
+  /* Submit */
+  .submit-wrap {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    text-align: center;
+    margin-top: 40px;
+  }
+  .submit-wrap h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--green-dark);
+    margin-bottom: 8px;
+  }
+  .submit-wrap p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .btn-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green-dark);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    padding: 13px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s, transform .15s;
+    letter-spacing: .02em;
+  }
+  .btn-submit:hover { background: var(--green-mid); transform: translateY(-1px); }
+  .btn-submit:active { transform: translateY(0); }
+
+  /* Thank you state */
+  .thankyou {
+    display: none;
+    text-align: center;
+    padding: 60px 24px;
+  }
+  .thankyou.visible { display: block; }
+  .thankyou-icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--teal-lt);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 28px;
+  }
+  .thankyou h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--green-dark);
+    margin-bottom: 10px;
+  }
+  .thankyou p { font-size: 14px; color: var(--muted); max-width: 420px; margin: 0 auto; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 11px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 40px 16px 36px; }
+    .main { padding: 28px 16px 60px; }
+    .q-card { padding: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span>Travel4Purpose</span>
+    <div class="topbar-dot"></div>
+    <span>IE Business School — Impact Project</span>
+    <div class="topbar-dot"></div>
+    <span>May 2026</span>
+  </div>
+</div>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-eyebrow">Pre-Meeting Form</div>
+  <h1>Help us make our time together count</h1>
+  <p>Before our next session, we'd love to understand your priorities better. This should take no more than 10 minutes.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      ~10 minutes
+    </div>
+    <div class="hero-meta-item">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      7 questions
+    </div>
+    <div class="hero-meta-item">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      Confidential
+    </div>
+  </div>
+</div>
+
+<!-- Progress -->
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <span class="progress-label">Your progress</span>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="progress-count" id="progressCount">0 / 7</span>
+  </div>
+</div>
+
+<!-- Main form -->
+<div class="main" id="formArea">
+
+  <!-- Section 1: Validation -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <span class="section-title">Validating our understanding</span>
+      <span class="section-note">1 question</span>
+    </div>
+
+    <div class="info-box">
+      <div class="info-box-icon">💡</div>
+      <p>Based on our kickoff meeting, we put together a summary of Travel4Purpose. We want to make sure we have it right before proposing anything.</p>
+    </div>
+
+    <div class="q-card" data-qid="1">
+      <label class="q-label">Q1. Does this summary of Travel4Purpose match your reality?</label>
+      <p class="q-hint">Kenya-based sustainable travel company, ~6 years old, offering safaris, day trips, itineraries and special occasions. Strong word-of-mouth conversion (14–40%). Small team: owner + 1 assistant. All operations managed through Notion, Google Sheets, and WhatsApp. Budget for new tools: ~€40–60 one-time + €5/month max.</p>
+      <div class="options-grid" data-type="radio" data-name="q1">
+        <label class="opt-item" onclick="selectOpt(this)">
+          <div class="opt-check"><div class="opt-check-inner"></div></div>
+          <span class="opt-text">✅ Yes, this is accurate</span>
+        </label>
+        <label class="opt-item" onclick="selectOpt(this)">
+          <div class="opt-check"><div class="opt-check-inner"></div></div>
+          <span class="opt-text">⚠️ Mostly, but some details need updating</span>
+        </label>
+        <label class="opt-item" onclick="selectOpt(this)">
+          <div class="opt-check"><div class="opt-check-inner"></div></div>
+          <span class="opt-text">❌ No, please let me correct it below</span>
+        </label>
+      </div>
+      <textarea style="margin-top:10px" placeholder="Any corrections or additions? (optional)" oninput="updateProgress()"></textarea>
+    </div>
+  </div>
+
+  <!-- Section 2: Pain Prioritization -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <span class="section-title">Prioritising your current challenges</span>
+      <span class="section-note">2 questions</span>
+    </div>
+
+    <div class="info-box">
+      <div class="info-box-icon">🎯</div>
+      <p>This is the most important section. Your answers will directly shape what we build for you. Please be as honest as possible — there are no wrong answers.</p>
+    </div>
+
+    <div class="q-card" data-qid="2">
+      <label class="q-label">Q2. Drag to rank your biggest operational challenges — most painful at the top</label>
+      <p class="q-hint">Drag and drop to reorder. Put your #1 pain at the top.</p>
+      <div class="rank-list" id="rankList">
+        <div class="rank-item" draggable="true" data-id="a">
+          <div class="rank-num">1</div>
+          <span class="rank-emoji">📋</span>
+          <span class="rank-text">Managing bookings manually (Google Sheets, calendar updates)</span>
+          <div class="rank-drag"><span></span><span></span><span></span></div>
+        </div>
+        <div class="rank-item" draggable="true" data-id="b">
+          <div class="rank-num">2</div>
+          <span class="rank-emoji">📱</span>
+          <span class="rank-text">Over-reliance on WhatsApp for all communication</span>
+          <div class="rank-drag"><span></span><span></span><span></span></div>
+        </div>
+        <div class="rank-item" draggable="true" data-id="c">
+          <div class="rank-num">3</div>
+          <span class="rank-emoji">🗓️</span>
+          <span class="rank-text">Checking guide and partner availability manually</span>
+          <div class="rank-drag"><span></span><span></span><span></span></div>
+        </div>
+        <div class="rank-item" draggable="true" data-id="d">
+          <div class="rank-num">4</div>
+          <span class="rank-emoji">👤</span>
+          <span class="rank-text">Clients have no visibility into their booking status</span>
+          <div class="rank-drag"><span></span><span></span><span></span></div>
+        </div>
+        <div class="rank-item" draggable="true" data-id="e">
+          <div class="rank-num">5</div>
+          <span class="rank-emoji">💰</span>
+          <span class="rank-text">Rate sheets from lodges are complex and change frequently</span>
+          <div class="rank-drag"><span></span><span></span><span></span></div>
+        </div>
+        <div class="rank-item" draggable="true" data-id="f">
+          <div class="rank-num">6</div>
+          <span class="rank-emoji">📣</span>
+          <span class="rank-text">Inconsistent or time-consuming social media presence</span>
+          <div class="rank-drag"><span></span><span></span><span></span></div>
+        </div>
+        <div class="rank-item" draggable="true" data-id="g">
+          <div class="rank-num">7</div>
+          <span class="rank-emoji">🌐</span>
+          <span class="rank-text">Website doesn't convert visitors into enquiries effectively</span>
+          <div class="rank-drag"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+      <textarea style="margin-top:14px" placeholder="Is there a challenge not listed above? Please describe it here..." oninput="updateProgress()"></textarea>
+    </div>
+
+    <div class="q-card" data-qid="3">
+      <label class="q-label">Q3. Where is the biggest pain right now — inside operations, or in how clients experience the booking?</label>
+      <p class="q-hint">Be honest — this shapes the entire direction of our project.</p>
+      <div class="options-grid" data-type="radio" data-name="q3">
+        <label class="opt-item" onclick="selectOpt(this)">
+          <div class="opt-check"><div class="opt-check-inner"></div></div>
+          <span class="opt-text">🏗️ Internal operations — the manual work is unsustainable</span>
+        </label>
+        <label class="opt-item" onclick="selectOpt(this)">
+          <div class="opt-check"><div class="opt-check-inner"></div></div>
+          <span class="opt-text">👥 Client experience — clients lack visibility and a professional touchpoint</span>
+        </label>
+        <label class="opt-item" onclick="selectOpt(this)">
+          <div class="opt-check"><div class="opt-check-inner"></div></div>
+          <span class="opt-text">⚖️ Both equally — I can't separate them</span>
+        </label>
+        <label class="opt-item" onclick="selectOpt(this)">
+          <div class="opt-check"><div class="opt-check-inner"></div></div>
+          <span class="opt-text">📣 Neither — the main issue is attracting more clients</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Operations data -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <span class="section-title">Operational context</span>
+      <span class="section-note">2 questions</span>
+    </div>
+
+    <div class="q-card" data-qid="4">
+      <label class="q-label">Q4. Roughly how many bookings do you handle per month, by type?</label>
+      <p class="q-hint">Approximate numbers are fine — we just need a sense of scale.</p>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom:10px">
+        <div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:500">Day trips</div>
+          <input type="text" placeholder="e.g. 8–10 / month" oninput="updateProgress()">
+        </div>
+        <div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:500">Personalised itineraries</div>
+          <input type="text" placeholder="e.g. 3–5 / month" oninput="updateProgress()">
+        </div>
+        <div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:500">Safaris</div>
+          <input type="text" placeholder="e.g. 2–3 / month" oninput="updateProgress()">
+        </div>
+        <div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:500">OTA bookings (GetYourGuide, Viator)</div>
+          <input type="text" placeholder="e.g. 5 / month" oninput="updateProgress()">
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card" data-qid="5">
+      <label class="q-label">Q5. On average, how many manual steps does your team take per booking — from enquiry to trip completion?</label>
+      <p class="q-hint">Think about all the back-and-forth: form review, guide check, sheet update, calendar sync, WhatsApp messages, payment follow-up, etc.</p>
+      <div class="options-grid" data-type="radio" data-name="q5">
+        <label class="opt-item" onclick="selectOpt(this)">
+          <div class="opt-check"><div class="opt-check-inner"></div></div>
+          <span class="opt-text">1–5 steps</span>
+        </label>
+        <label class="opt-item" onclick="selectOpt(this)">
+          <div class="opt-check"><div class="opt-check-inner"></div></div>
+          <span class="opt-text">6–10 steps</span>
+        </label>
+        <label class="opt-item" onclick="selectOpt(this)">
+          <div class="opt-check"><div class="opt-check-inner"></div></div>
+          <span class="opt-text">11–20 steps</span>
+        </label>
+        <label class="opt-item" onclick="selectOpt(this)">
+          <div class="opt-check"><div class="opt-check-inner"></div></div>
+          <span class="opt-text">20+ steps — it's a lot</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Success definition -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <span class="section-title">Defining success</span>
+      <span class="section-note">2 questions</span>
+    </div>
+
+    <div class="q-card" data-qid="6">
+      <label class="q-label">Q6. What would make this project a clear success for you?</label>
+      <p class="q-hint">Be as specific as possible. Examples: "I spend less than 1 hour per booking on admin", "Clients stop asking me for trip details on WhatsApp", "I can handle 2x more bookings without hiring."</p>
+      <textarea placeholder="Describe your ideal outcome in your own words..." oninput="updateProgress()"></textarea>
+    </div>
+
+    <div class="q-card" data-qid="7">
+      <label class="q-label">Q7. Is there anything we should know before the meeting — a constraint, a concern, or something you've already tried that didn't work?</label>
+      <p class="q-hint">This is your space to share anything that hasn't come up yet.</p>
+      <textarea placeholder="Any context that would help us prepare better..." oninput="updateProgress()"></textarea>
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <div class="submit-wrap">
+    <h3>You're all set 🌍</h3>
+    <p>Thank you for taking the time to complete this. We'll review your answers before our meeting and come prepared with a focused proposal.</p>
+    <button class="btn-submit" onclick="handleSubmit()">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+      Submit my answers
+    </button>
+  </div>
+
+</div>
+
+<!-- Thank you -->
+<div class="thankyou" id="thankyou">
+  <div class="thankyou-icon">✅</div>
+  <h2>Thank you, Sam!</h2>
+  <p>We've received your answers and will review them before our meeting. See you soon — this is going to be a great session.</p>
+  <p style="margin-top:16px; font-size:12px;">— Banda, Jonathan & Fernando</p>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  Travel4Purpose × IE Business School Impact Project · May 2026 · Confidential
+</div>
+
+<script>
+  // Progress tracking
+  const totalQ = 7;
+  function updateProgress() {
+    let answered = 0;
+    // Radio/select questions
+    document.querySelectorAll('.q-card').forEach(card => {
+      const qid = card.dataset.qid;
+      const hasRadio = card.querySelector('.opt-item.selected');
+      const textareas = card.querySelectorAll('textarea');
+      const inputs = card.querySelectorAll('input[type="text"]');
+      let filled = false;
+      if (hasRadio) filled = true;
+      textareas.forEach(t => { if (t.value.trim()) filled = true; });
+      inputs.forEach(inp => { if (inp.value.trim()) filled = true; });
+      // Q2 is always "answered" once they see it (ranking)
+      if (qid === '2') filled = true;
+      if (filled) answered++;
+    });
+    const pct = Math.round((answered / totalQ) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressCount').textContent = answered + ' / ' + totalQ;
+  }
+
+  // Radio selection
+  function selectOpt(el) {
+    const grid = el.closest('.options-grid');
+    grid.querySelectorAll('.opt-item').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    updateProgress();
+  }
+
+  // Drag-and-drop ranking
+  const rankList = document.getElementById('rankList');
+  let dragSrc = null;
+
+  rankList.addEventListener('dragstart', e => {
+    dragSrc = e.target.closest('.rank-item');
+    dragSrc.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+  });
+  rankList.addEventListener('dragend', e => {
+    document.querySelectorAll('.rank-item').forEach(i => {
+      i.classList.remove('dragging', 'drag-over');
+    });
+    updateRankNumbers();
+    updateProgress();
+  });
+  rankList.addEventListener('dragover', e => {
+    e.preventDefault();
+    const target = e.target.closest('.rank-item');
+    if (target && target !== dragSrc) {
+      document.querySelectorAll('.rank-item').forEach(i => i.classList.remove('drag-over'));
+      target.classList.add('drag-over');
+      const rect = target.getBoundingClientRect();
+      const mid = rect.top + rect.height / 2;
+      if (e.clientY < mid) {
+        rankList.insertBefore(dragSrc, target);
+      } else {
+        rankList.insertBefore(dragSrc, target.nextSibling);
+      }
+    }
+  });
+
+  function updateRankNumbers() {
+    rankList.querySelectorAll('.rank-item').forEach((item, i) => {
+      const num = item.querySelector('.rank-num');
+      num.textContent = i + 1;
+      num.classList.remove('top', 'second');
+      if (i === 0) num.classList.add('top');
+      else if (i === 1) num.classList.add('second');
+    });
+  }
+
+  // Submit — sends to Formspree
+  async function handleSubmit() {
+    const btn = document.querySelector('.btn-submit');
+    btn.disabled = true;
+    btn.innerHTML = '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Sending...';
+
+    // Collect all answers
+    const data = new FormData();
+
+    // Q1
+    const q1 = document.querySelector('[data-name="q1"] .selected .opt-text');
+    data.append('Q1 - Summary accurate?', q1 ? q1.textContent.trim() : 'Not answered');
+    const q1text = document.querySelectorAll('[data-qid="1"] textarea')[0];
+    data.append('Q1 - Corrections', q1text ? q1text.value.trim() : '');
+
+    // Q2 - Ranking order
+    const rankItems = document.querySelectorAll('#rankList .rank-item .rank-text');
+    rankItems.forEach((item, i) => {
+      data.append(`Q2 - Pain #${i + 1}`, item.textContent.trim());
+    });
+    const q2extra = document.querySelectorAll('[data-qid="2"] textarea')[0];
+    data.append('Q2 - Other challenges', q2extra ? q2extra.value.trim() : '');
+
+    // Q3
+    const q3 = document.querySelector('[data-name="q3"] .selected .opt-text');
+    data.append('Q3 - Biggest pain area', q3 ? q3.textContent.trim() : 'Not answered');
+    const q3text = document.querySelectorAll('[data-qid="3"] textarea')[0];
+    data.append('Q3 - Additional context', q3text ? q3text.value.trim() : '');
+
+    // Q4 - booking volumes
+    const q4inputs = document.querySelectorAll('[data-qid="4"] input[type="text"]');
+    const q4labels = ['Day trips', 'Personalised itineraries', 'Safaris', 'OTA bookings'];
+    q4inputs.forEach((inp, i) => data.append(`Q4 - ${q4labels[i]}`, inp.value.trim()));
+
+    // Q5
+    const q5 = document.querySelector('[data-name="q5"] .selected .opt-text');
+    data.append('Q5 - Manual steps per booking', q5 ? q5.textContent.trim() : 'Not answered');
+
+    // Q6 & Q7
+    const q6 = document.querySelectorAll('[data-qid="6"] textarea')[0];
+    data.append('Q6 - Definition of success', q6 ? q6.value.trim() : '');
+    const q7 = document.querySelectorAll('[data-qid="7"] textarea')[0];
+    data.append('Q7 - Constraints or concerns', q7 ? q7.value.trim() : '');
+
+    try {
+      const res = await fetch('https://formspree.io/f/xlgzzlrl', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        document.getElementById('formArea').style.display = 'none';
+        document.getElementById('thankyou').classList.add('visible');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        btn.disabled = false;
+        btn.innerHTML = '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg> Try again';
+        alert('Something went wrong. Please try again or contact us on WhatsApp.');
+      }
+    } catch (err) {
+      btn.disabled = false;
+      btn.innerHTML = '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg> Try again';
+      alert('Connection error. Please check your internet and try again.');
+    }
+  }
+
+  // Init
+  updateProgress();
+  updateRankNumbers();
+</script>
+</body>
+</html>
