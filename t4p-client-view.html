@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Trip with Travel4Purpose 🌍</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --orange:#E8631A;--orange-lt:#FEF0E7;--orange-dk:#C04F10;
+  --dark:#0F0F0F;--sand:#F7F4EF;--white:#FFFFFF;
+  --body:#2C2825;--muted:#7C7369;--border:#E8E3DC;
+  --green:#16A34A;--green-lt:#DCFCE7;
+  --blue:#1D4ED8;--blue-lt:#EFF6FF;
+  --purple:#7C3AED;--purple-lt:#F5F3FF;
+  --amber:#D97706;--amber-lt:#FEF3C7;
+}
+html{scroll-behavior:smooth;font-size:15px;}
+body{font-family:'DM Sans',sans-serif;background:var(--sand);color:var(--body);}
+
+/* Hero */
+.hero{background:var(--dark);position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0F0F0F 0%,#1A2C1A 50%,#0F0F0F 100%);}
+.hero-pattern{position:absolute;inset:0;background-image:radial-gradient(circle at 20% 50%,rgba(232,99,26,.15) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(232,99,26,.08) 0%,transparent 40%);}
+.hero-inner{position:relative;max-width:700px;margin:0 auto;padding:48px 24px 40px;}
+.hero-brand{display:flex;align-items:center;gap:10px;margin-bottom:36px;}
+.brand-name{font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;color:rgba(255,255,255,.8);}
+.hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;}
+.hero-title{font-family:'Fraunces',serif;font-size:clamp(28px,6vw,46px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:12px;}
+.hero-title em{font-style:italic;color:var(--orange);}
+.hero-sub{font-size:14px;font-weight:300;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:24px;max-width:480px;}
+.trip-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px;}
+.meta-pill{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:99px;padding:6px 14px;font-size:12px;color:rgba(255,255,255,.75);}
+.meta-pill svg{opacity:.6;}
+
+/* Progress steps */
+.progress-steps{display:flex;border-top:1px solid rgba(255,255,255,.08);}
+.progress-step{flex:1;padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;border-top:2px solid transparent;transition:all .2s;position:relative;top:-1px;}
+.progress-step.done{border-top-color:var(--green);}
+.progress-step.active{border-top-color:var(--orange);}
+.step-icon{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.progress-step.done .step-icon{background:var(--green);color:#fff;}
+.progress-step.active .step-icon{background:var(--orange);color:#fff;}
+.progress-step.pending .step-icon{background:rgba(255,255,255,.1);color:rgba(255,255,255,.4);}
+.step-label{font-size:9px;font-weight:500;color:rgba(255,255,255,.5);text-align:center;}
+.progress-step.done .step-label,.progress-step.active .step-label{color:rgba(255,255,255,.85);}
+
+/* Content */
+.content-wrap{max-width:700px;margin:0 auto;padding:28px 24px 100px;}
+
+/* Section cards */
+.section-card{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.section-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;border-bottom:1px solid transparent;transition:border-color .15s;}
+.section-head.open{border-bottom-color:var(--border);}
+.section-head-left{display:flex;align-items:center;gap:11px;}
+.section-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:600;color:var(--body);}
+.section-sub{font-size:12px;color:var(--muted);}
+.section-badge{font-size:10px;font-weight:600;padding:3px 9px;border-radius:99px;white-space:nowrap;}
+.badge-done{background:var(--green-lt);color:var(--green);}
+.badge-pending{background:var(--orange-lt);color:var(--orange);}
+.badge-info{background:var(--blue-lt);color:var(--blue);}
+.badge-purple{background:var(--purple-lt);color:var(--purple);}
+.chevron{transition:transform .2s;color:var(--muted);}
+.chevron.open{transform:rotate(180deg);}
+.section-body{padding:18px 20px;display:none;}
+.section-body.open{display:block;}
+
+/* Step items */
+.step-item{display:flex;align-items:flex-start;gap:13px;padding:13px 0;border-bottom:1px solid var(--border);}
+.step-item:last-child{border-bottom:none;padding-bottom:0;}
+.step-num-badge{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.step-done{background:var(--green-lt);color:var(--green);}
+.step-pending{background:var(--orange-lt);color:var(--orange);}
+.step-future{background:#F1F5F9;color:#94A3B8;}
+.step-content-title{font-size:14px;font-weight:600;color:var(--body);margin-bottom:3px;}
+.step-content-desc{font-size:13px;color:var(--muted);line-height:1.5;}
+.step-action-btn{display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:var(--orange);color:#fff;border:none;border-radius:7px;padding:8px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;}
+.step-action-btn:hover{background:var(--orange-dk);}
+.step-action-btn.secondary{background:transparent;border:1px solid var(--orange);color:var(--orange);}
+.step-action-btn.secondary:hover{background:var(--orange-lt);}
+
+/* ── NEW 5: Full itinerary — day cards ── */
+.itinerary-tabs{display:flex;gap:4px;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:0;}
+.itin-tab{padding:7px 14px;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+.itin-tab.active{color:var(--orange);border-bottom-color:var(--orange);font-weight:600;}
+.itin-view{display:none;}
+.itin-view.active{display:block;}
+.day-card{border:1px solid var(--border);border-radius:10px;margin-bottom:10px;overflow:hidden;transition:box-shadow .15s;}
+.day-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.day-card-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;background:var(--white);}
+.day-card-head.open{border-bottom:1px solid var(--border);}
+.day-num{width:36px;height:36px;border-radius:8px;background:var(--orange-lt);color:var(--orange);font-family:'Fraunces',serif;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.day-title{font-size:14px;font-weight:600;color:var(--body);}
+.day-location{font-size:11px;color:var(--muted);}
+.day-tags{display:flex;gap:5px;margin-left:auto;flex-wrap:wrap;justify-content:flex-end;}
+.day-tag{background:var(--sand);border:1px solid var(--border);border-radius:99px;padding:2px 9px;font-size:10px;color:var(--muted);}
+.day-body{padding:16px;background:#FDFCFB;display:none;}
+.day-body.open{display:block;}
+.day-activity{display:flex;gap:10px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.day-activity:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+.activity-time{font-size:11px;font-weight:600;color:var(--orange);min-width:56px;padding-top:2px;}
+.activity-name{font-size:13px;font-weight:500;color:var(--body);margin-bottom:2px;}
+.activity-desc{font-size:12px;color:var(--muted);line-height:1.5;}
+.accom-card{background:var(--blue-lt);border:1px solid #BFDBFE;border-radius:8px;padding:12px 14px;margin-top:12px;display:flex;align-items:center;gap:12px;}
+.accom-icon{font-size:20px;}
+.accom-name{font-size:13px;font-weight:600;color:var(--blue);}
+.accom-detail{font-size:11px;color:#3B82F6;}
+
+/* ── NEW 3: Document upload ── */
+.doc-upload-area{border:2px dashed var(--border);border-radius:10px;padding:24px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:14px;}
+.doc-upload-area:hover,.doc-upload-area.drag{border-color:var(--orange);background:var(--orange-lt);}
+.doc-upload-icon{font-size:28px;margin-bottom:8px;}
+.doc-upload-title{font-size:14px;font-weight:600;color:var(--body);margin-bottom:4px;}
+.doc-upload-sub{font-size:12px;color:var(--muted);}
+.doc-upload-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;background:var(--orange);color:#fff;border:none;border-radius:7px;padding:8px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;}
+input[type=file]{display:none;}
+.doc-list{display:flex;flex-direction:column;gap:8px;}
+.doc-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--sand);border:1px solid var(--border);border-radius:8px;}
+.doc-item-icon{font-size:18px;flex-shrink:0;}
+.doc-item-name{font-size:13px;font-weight:500;color:var(--body);flex:1;}
+.doc-item-status{font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;}
+.doc-status-uploaded{background:var(--green-lt);color:var(--green);}
+.doc-status-pending{background:var(--orange-lt);color:var(--orange);}
+.doc-remove{background:none;border:none;cursor:pointer;color:var(--muted);font-size:16px;padding:0 4px;}
+.doc-required-list{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+.doc-required-item{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--sand);border:1px solid var(--border);border-radius:7px;}
+.doc-req-label{font-size:13px;color:var(--body);}
+.doc-req-badge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:99px;}
+.doc-req-required{background:#FEE2E2;color:#DC2626;}
+.doc-req-optional{background:var(--amber-lt);color:var(--amber);}
+.doc-req-uploaded{background:var(--green-lt);color:var(--green);}
+
+/* ── NEW 4: Feedback section ── */
+.feedback-hero{background:linear-gradient(135deg,#1C1917 0%,#2C1A0F 100%);border-radius:12px;padding:20px;margin-bottom:16px;display:flex;align-items:center;gap:16px;}
+.feedback-icon{font-size:36px;flex-shrink:0;}
+.feedback-title{font-family:'Fraunces',serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:4px;}
+.feedback-sub{font-size:13px;color:rgba(255,255,255,.6);line-height:1.5;}
+.incentive-badge{display:inline-flex;align-items:center;gap:6px;background:var(--orange);color:#fff;border-radius:99px;padding:4px 12px;font-size:12px;font-weight:600;margin-top:8px;}
+.stars-row{display:flex;gap:8px;margin-bottom:16px;justify-content:center;}
+.star-btn{font-size:32px;cursor:pointer;transition:transform .15s;opacity:.3;border:none;background:none;padding:0;}
+.star-btn.active{opacity:1;transform:scale(1.1);}
+.star-label{text-align:center;font-size:13px;color:var(--muted);margin-bottom:16px;min-height:20px;}
+.feedback-q{margin-bottom:16px;}
+.feedback-q-label{font-size:13px;font-weight:600;color:var(--body);margin-bottom:8px;}
+.feedback-options{display:flex;flex-wrap:wrap;gap:6px;}
+.feedback-opt{padding:6px 14px;border:1px solid var(--border);border-radius:99px;font-size:12px;color:var(--muted);cursor:pointer;transition:all .15s;}
+.feedback-opt:hover{border-color:var(--orange);color:var(--orange);}
+.feedback-opt.selected{background:var(--orange);border-color:var(--orange);color:#fff;}
+.feedback-textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--body);background:var(--sand);resize:none;outline:none;min-height:80px;}
+.feedback-textarea:focus{border-color:var(--orange);background:var(--white);}
+.submit-feedback-btn{width:100%;background:var(--orange);color:#fff;border:none;border-radius:8px;padding:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:4px;}
+.submit-feedback-btn:hover{background:var(--orange-dk);}
+.feedback-success{text-align:center;padding:24px 0;display:none;}
+.feedback-success-icon{font-size:48px;margin-bottom:12px;}
+.feedback-success-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--body);margin-bottom:6px;}
+.feedback-success-sub{font-size:13px;color:var(--muted);}
+.reward-card{background:var(--orange-lt);border:1px solid #FCD9BD;border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin-top:14px;}
+.reward-icon{font-size:24px;flex-shrink:0;}
+.reward-title{font-size:13px;font-weight:600;color:var(--orange-dk);}
+.reward-code{font-size:12px;color:var(--muted);}
+.reward-code strong{color:var(--orange);letter-spacing:.05em;}
+
+/* Packing list */
+.pack-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--body);}
+.pack-item:last-child{border-bottom:none;}
+.pack-check{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--border);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.pack-check.checked{background:var(--green);border-color:var(--green);}
+
+/* Values */
+.values-card{background:var(--dark);border-radius:12px;padding:18px;}
+.values-title{font-family:'Fraunces',serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:14px;}
+.value-row{display:flex;gap:12px;margin-bottom:12px;font-size:13px;}
+.value-row:last-child{margin-bottom:0;}
+.value-emoji{font-size:16px;flex-shrink:0;margin-top:1px;}
+.value-text{color:rgba(255,255,255,.7);line-height:1.5;}
+.value-text strong{color:#fff;}
+
+/* Impact */
+.impact-banner{background:linear-gradient(135deg,#0F2010,#1A3A1A);border:1px solid #1A4A2E;border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.impact-icon{font-size:28px;}
+.impact-text{font-size:13px;color:rgba(255,255,255,.7);line-height:1.5;}
+.impact-text strong{color:#4ADE80;}
+
+/* Sticky CTA */
+.sticky-cta{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:100;}
+.sticky-cta-text{font-size:13px;color:var(--muted);}
+.sticky-cta-text strong{color:var(--body);display:block;font-size:14px;}
+.sticky-wa-btn{display:flex;align-items:center;gap:8px;background:#16A34A;color:#fff;border:none;border-radius:9px;padding:11px 20px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;}
+.sticky-wa-btn:hover{background:#15803D;}
+
+@media(max-width:768px){
+  .hero-inner{padding:32px 16px 28px;}
+  .trip-meta{gap:5px;}
+  .meta-pill{font-size:11px;padding:5px 10px;}
+  .progress-step{padding:10px 4px;}
+  .step-label{font-size:8px;}
+  .content-wrap{padding:18px 14px 100px;}
+  .section-head{padding:14px 14px;}
+  .section-body{padding:14px 14px;}
+  .sticky-cta{padding:10px 14px;}
+  .day-body{padding:12px;}
+  .stars-row{gap:6px;}
+  .star-btn{font-size:28px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-inner">
+    <div class="hero-brand">
+      <img src="data:image/png;base64,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" alt="Travel4Purpose" style="width:36px;height:36px;border-radius:50%;object-fit:cover;" onerror="this.style.display='none'">
+      <span class="brand-name">Travel4Purpose</span>
+    </div>
+    <div class="hero-eyebrow">Your trip is confirmed 🎉</div>
+    <h1 class="hero-title">Lamu Island &amp;<br><em>Kenyan Coast</em></h1>
+    <p class="hero-sub">Hey Emily! Everything you need for your 10-day adventure is right here. We've curated every detail — explore at your own pace. 🌍🧡</p>
+    <div class="trip-meta">
+      <div class="meta-pill"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Jul 3 – Jul 13, 2026</div>
+      <div class="meta-pill"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>10 days · Full itinerary</div>
+      <div class="meta-pill"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>2 travellers</div>
+      <div class="meta-pill"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Kenya — Coast & Mombasa</div>
+    </div>
+    <div class="progress-steps">
+      <div class="progress-step done"><div class="step-icon">✓</div><div class="step-label">Enquiry</div></div>
+      <div class="progress-step done"><div class="step-icon">✓</div><div class="step-label">Payment</div></div>
+      <div class="progress-step done"><div class="step-icon">✓</div><div class="step-label">Waiver</div></div>
+      <div class="progress-step active"><div class="step-icon">4</div><div class="step-label">Documents</div></div>
+      <div class="progress-step pending"><div class="step-icon">5</div><div class="step-label">Details</div></div>
+      <div class="progress-step pending"><div class="step-icon">6</div><div class="step-label">Travel!</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <!-- Impact -->
+  <div class="impact-banner">
+    <div class="impact-icon">🌱</div>
+    <div class="impact-text"><strong>Your trip creates real impact.</strong> 10 days with Travel4Purpose supports local guides, family-run guesthouses, and conservation initiatives across the Kenyan coast.</div>
+  </div>
+
+  <!-- Payment -->
+  <div class="section-card">
+    <div class="section-head open" onclick="toggle(this)">
+      <div class="section-head-left"><div class="section-icon" style="background:#DCFCE7">✅</div><div><div class="section-title">Payment</div><div class="section-sub">Booking secured</div></div></div>
+      <div style="display:flex;align-items:center;gap:8px"><span class="section-badge badge-done">Completed</span><svg class="chevron open" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="section-body open">
+      <div class="step-item"><div class="step-num-badge step-done">✓</div><div><div class="step-content-title">50% deposit confirmed — $1,200</div><div class="step-content-desc">Paid via WeTravel on May 16, 2026. Balance of $1,200 due by June 3, 2026 (30 days before travel). Receipt sent to emily@gmail.com.</div></div></div>
+    </div>
+  </div>
+
+  <!-- Waiver -->
+  <div class="section-card">
+    <div class="section-head open" onclick="toggle(this)">
+      <div class="section-head-left"><div class="section-icon" style="background:#DCFCE7">✅</div><div><div class="section-title">Waiver Form</div><div class="section-sub">Completed</div></div></div>
+      <div style="display:flex;align-items:center;gap:8px"><span class="section-badge badge-done">Completed</span><svg class="chevron open" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="section-body open">
+      <div class="step-item"><div class="step-num-badge step-done">✓</div><div><div class="step-content-title">Waiver form submitted</div><div class="step-content-desc">Thank you! We have your emergency contacts and health information on file.</div></div></div>
+    </div>
+  </div>
+
+  <!-- NEW 3: Document Upload -->
+  <div class="section-card">
+    <div class="section-head open" onclick="toggle(this)">
+      <div class="section-head-left"><div class="section-icon" style="background:var(--orange-lt)">📎</div><div><div class="section-title">Travel Documents</div><div class="section-sub">Upload your visa and ID before travel</div></div></div>
+      <div style="display:flex;align-items:center;gap:8px"><span class="section-badge badge-pending">1 of 3 uploaded</span><svg class="chevron open" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="section-body open">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.5;">Please upload the following documents before your trip. This helps us prepare everything and share with your guides and accommodation partners where required.</p>
+
+      <div class="doc-required-list">
+        <div class="doc-required-item">
+          <span class="doc-req-label">🛂 Visa confirmation (Kenya e-visa)</span>
+          <span class="doc-req-badge doc-req-uploaded">✓ Uploaded</span>
+        </div>
+        <div class="doc-required-item">
+          <span class="doc-req-label">🛂 Passport copy (data page)</span>
+          <span class="doc-req-badge doc-req-required">Required</span>
+        </div>
+        <div class="doc-required-item">
+          <span class="doc-req-label">💊 Medical info / allergies (if any)</span>
+          <span class="doc-req-badge doc-req-optional">Optional</span>
+        </div>
+      </div>
+
+      <div class="doc-list" id="docList">
+        <div class="doc-item">
+          <div class="doc-item-icon">📄</div>
+          <div class="doc-item-name">Kenya_eVisa_Emily_Campbell.pdf</div>
+          <span class="doc-item-status doc-status-uploaded">Uploaded ✓</span>
+        </div>
+      </div>
+
+      <div class="doc-upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleDrop(event)">
+        <div class="doc-upload-icon">☁️</div>
+        <div class="doc-upload-title">Drop files here or click to upload</div>
+        <div class="doc-upload-sub">PDF, JPG, PNG — max 10MB per file</div>
+        <button class="doc-upload-btn" onclick="event.stopPropagation();document.getElementById('fileInput').click()">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Choose files
+        </button>
+        <input type="file" id="fileInput" multiple accept=".pdf,.jpg,.jpeg,.png" onchange="handleFiles(this.files)">
+      </div>
+    </div>
+  </div>
+
+  <!-- Full Itinerary — NEW 5 -->
+  <div class="section-card">
+    <div class="section-head open" onclick="toggle(this)">
+      <div class="section-head-left"><div class="section-icon" style="background:var(--orange-lt)">🗺</div><div><div class="section-title">Your 10-Day Itinerary</div><div class="section-sub">Day by day · accommodation · activities</div></div></div>
+      <div style="display:flex;align-items:center;gap:8px"><span class="section-badge badge-info">Full itinerary</span><svg class="chevron open" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="section-body open">
+      <div class="itinerary-tabs">
+        <div class="itin-tab active" onclick="switchItin(this,'days')">Day by day</div>
+        <div class="itin-tab" onclick="switchItin(this,'accommodation')">Accommodation</div>
+        <div class="itin-tab" onclick="switchItin(this,'inclusions')">What's included</div>
+      </div>
+
+      <!-- Days view -->
+      <div class="itin-view active" id="itin-days">
+        <!-- Day 1 -->
+        <div class="day-card">
+          <div class="day-card-head" onclick="toggleDay(this)">
+            <div class="day-num">1</div>
+            <div><div class="day-title">Arrival in Mombasa</div><div class="day-location">📍 Mombasa · Jul 3</div></div>
+            <div class="day-tags"><span class="day-tag">Arrival</span><span class="day-tag">City</span></div>
+          </div>
+          <div class="day-body">
+            <div class="day-activity"><div class="activity-time">2:30 PM</div><div><div class="activity-name">Airport pickup</div><div class="activity-desc">Tyson meets you at JKIA arrivals. Transfer to your hotel in Old Town Mombasa.</div></div></div>
+            <div class="day-activity"><div class="activity-time">5:00 PM</div><div><div class="activity-name">Welcome walk — Old Town</div><div class="activity-desc">A gentle introduction to Mombasa's streets, spice markets, and Fort Jesus from the outside.</div></div></div>
+            <div class="day-activity"><div class="activity-time">7:30 PM</div><div><div class="activity-name">Welcome dinner</div><div class="activity-desc">Swahili feast at Jahazi Coffee House — coconut fish curry, pilau, fresh mango juice.</div></div></div>
+            <div class="accom-card"><div class="accom-icon">🏨</div><div><div class="accom-name">Old Town Heritage Hotel</div><div class="accom-detail">2 nights · Deluxe double · Breakfast included</div></div></div>
+          </div>
+        </div>
+        <!-- Day 2 -->
+        <div class="day-card">
+          <div class="day-card-head" onclick="toggleDay(this)">
+            <div class="day-num">2</div>
+            <div><div class="day-title">Mombasa City & Food Tour</div><div class="day-location">📍 Mombasa · Jul 4</div></div>
+            <div class="day-tags"><span class="day-tag">Food</span><span class="day-tag">Culture</span></div>
+          </div>
+          <div class="day-body">
+            <div class="day-activity"><div class="activity-time">9:00 AM</div><div><div class="activity-name">Tuk tuk city tour</div><div class="activity-desc">Wind through Old Town's narrow streets with Tyson. Stories of Mombasa's Swahili coast history.</div></div></div>
+            <div class="day-activity"><div class="activity-time">11:00 AM</div><div><div class="activity-name">Street food market</div><div class="activity-desc">Mandazi, mahamri, sugarcane juice — your first real taste of Mombasa.</div></div></div>
+            <div class="day-activity"><div class="activity-time">1:00 PM</div><div><div class="activity-name">Swahili home lunch</div><div class="activity-desc">Biryani and coconut curry with a local family who have hosted travellers for 10 years.</div></div></div>
+            <div class="day-activity"><div class="activity-time">3:30 PM</div><div><div class="activity-name">Spice market & free time</div><div class="activity-desc">Browse, shop, and soak in the afternoon light over the harbour.</div></div></div>
+          </div>
+        </div>
+        <!-- Day 3 -->
+        <div class="day-card">
+          <div class="day-card-head" onclick="toggleDay(this)">
+            <div class="day-num">3</div>
+            <div><div class="day-title">Nguuni Nature Sanctuary</div><div class="day-location">📍 Mombasa · Jul 5</div></div>
+            <div class="day-tags"><span class="day-tag">Wildlife</span><span class="day-tag">Nature</span></div>
+          </div>
+          <div class="day-body">
+            <div class="day-activity"><div class="activity-time">9:30 AM</div><div><div class="activity-name">Nature walk with giraffes</div><div class="activity-desc">Walk alongside rescued giraffes at Nguuni — intimate, crowd-free, and genuinely magical.</div></div></div>
+            <div class="day-activity"><div class="activity-time">12:30 PM</div><div><div class="activity-name">Picnic lunch at the sanctuary</div><div class="activity-desc">Fresh sandwiches and fruit prepared by the sanctuary kitchen.</div></div></div>
+            <div class="day-activity"><div class="activity-time">2:30 PM</div><div><div class="activity-name">Travel to Watamu</div><div class="activity-desc">3-hour drive up the coast. Arrive to your beachfront lodge in time for sunset.</div></div></div>
+            <div class="accom-card"><div class="accom-icon">🌊</div><div><div class="accom-name">Medina Palms, Watamu</div><div class="accom-detail">3 nights · Ocean view villa · Breakfast & dinner included</div></div></div>
+          </div>
+        </div>
+        <div style="text-align:center;padding:16px 0;border-top:1px solid var(--border);margin-top:8px;">
+          <p style="font-size:13px;color:var(--muted)">Days 4–10 will be shared here once trip details are finalised with your guides.</p>
+          <button class="step-action-btn secondary" style="margin-top:10px" onclick="alert('Opens WhatsApp chat with Sham')">💬 Ask Sham about days 4–10</button>
+        </div>
+      </div>
+
+      <!-- Accommodation view -->
+      <div class="itin-view" id="itin-accommodation">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="accom-card" style="background:var(--orange-lt);border-color:#FCD9BD;flex-direction:column;align-items:flex-start;gap:8px;">
+            <div style="display:flex;align-items:center;gap:10px"><div class="accom-icon">🏨</div><div><div class="accom-name" style="color:var(--orange-dk)">Old Town Heritage Hotel</div><div class="accom-detail" style="color:var(--muted)">Jul 3–5 · 2 nights · Mombasa Old Town</div></div></div>
+            <div style="font-size:12px;color:var(--muted)">Deluxe double room · Breakfast included · Walking distance to all Day 1–2 activities</div>
+          </div>
+          <div class="accom-card" style="background:var(--blue-lt);border-color:#BFDBFE;flex-direction:column;align-items:flex-start;gap:8px;">
+            <div style="display:flex;align-items:center;gap:10px"><div class="accom-icon">🌊</div><div><div class="accom-name">Medina Palms, Watamu</div><div class="accom-detail" style="color:var(--muted)">Jul 5–8 · 3 nights · Watamu</div></div></div>
+            <div style="font-size:12px;color:var(--muted)">Ocean view villa · Breakfast & dinner · Beachfront · Sunset dhow included</div>
+          </div>
+          <div class="accom-card" style="background:var(--green-lt);border-color:#BBF7D0;flex-direction:column;align-items:flex-start;gap:8px;">
+            <div style="display:flex;align-items:center;gap:10px"><div class="accom-icon">🦁</div><div><div class="accom-name">Kobe Suite Resorts, Amboseli</div><div class="accom-detail" style="color:var(--muted)">Jul 8–11 · 3 nights · Amboseli</div></div></div>
+            <div style="font-size:12px;color:var(--muted)">Safari suite · Full board · Game drives included · Kilimanjaro views</div>
+          </div>
+          <div class="accom-card" style="background:var(--purple-lt);border-color:#DDD6FE;flex-direction:column;align-items:flex-start;gap:8px;">
+            <div style="display:flex;align-items:center;gap:10px"><div class="accom-icon">🏙</div><div><div class="accom-name">Nairobi Serena Hotel</div><div class="accom-detail" style="color:var(--muted)">Jul 11–13 · 2 nights · Nairobi</div></div></div>
+            <div style="font-size:12px;color:var(--muted)">Classic room · Breakfast · City centre location · Airport transfer on departure</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inclusions view -->
+      <div class="itin-view" id="itin-inclusions">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--green-lt);border:1px solid #BBF7D0;border-radius:10px;padding:14px;">
+            <div style="font-size:12px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">✅ Included</div>
+            <div style="font-size:12px;color:var(--body);line-height:1.8;">All accommodation (10 nights)<br>All airport & inter-city transfers<br>Giraffe walk — Nguuni<br>Mombasa City & Food Tour<br>Watamu Sunset Dhow<br>Amboseli game drives (x3)<br>Village cooking class<br>All stated meals (B&B + D where noted)<br>Local guide fees (all days)<br>T4P coordination & support</div>
+          </div>
+          <div style="background:#FEE2E2;border:1px solid #FECACA;border-radius:10px;padding:14px;">
+            <div style="font-size:12px;font-weight:700;color:#DC2626;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">❌ Not included</div>
+            <div style="font-size:12px;color:var(--body);line-height:1.8;">International flights<br>Kenya visa fee ($50 USD)<br>Travel insurance<br>Personal shopping & souvenirs<br>Alcoholic beverages<br>Optional tips for guides<br>Meals not listed in itinerary</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Packing list -->
+  <div class="section-card">
+    <div class="section-head" onclick="toggle(this)">
+      <div class="section-head-left"><div class="section-icon" style="background:#F0FDF4">🎒</div><div><div class="section-title">Packing Checklist</div><div class="section-sub">Tap to tick off as you pack</div></div></div>
+      <svg class="chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="section-body">
+      <div id="packList">
+        <div class="pack-item"><div class="pack-check" onclick="checkItem(this)"></div>Comfortable walking shoes (Old Town has uneven streets)</div>
+        <div class="pack-item"><div class="pack-check" onclick="checkItem(this)"></div>Light layers — Mombasa is warm, Amboseli gets cool at night</div>
+        <div class="pack-item"><div class="pack-check" onclick="checkItem(this)"></div>Sunscreen SPF 50+</div>
+        <div class="pack-item"><div class="pack-check" onclick="checkItem(this)"></div>Insect repellent</div>
+        <div class="pack-item"><div class="pack-check" onclick="checkItem(this)"></div>Swimwear (Watamu beach)</div>
+        <div class="pack-item"><div class="pack-check" onclick="checkItem(this)"></div>Neutral/muted colours for game drives</div>
+        <div class="pack-item"><div class="pack-check" onclick="checkItem(this)"></div>Camera or binoculars for safari</div>
+        <div class="pack-item"><div class="pack-check" onclick="checkItem(this)"></div>Small day pack / backpack</div>
+        <div class="pack-item"><div class="pack-check" onclick="checkItem(this)"></div>Cash in KES (for tips, markets, personal shopping)</div>
+        <div class="pack-item"><div class="pack-check" onclick="checkItem(this)"></div>Adapter (Kenya uses UK Type G plugs)</div>
+        <div class="pack-item"><div class="pack-check" onclick="checkItem(this)"></div>Your sense of adventure 🌍</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- T4P Values -->
+  <div class="section-card">
+    <div class="section-head" onclick="toggle(this)">
+      <div class="section-head-left"><div class="section-icon" style="background:var(--orange-lt)">🌿</div><div><div class="section-title">Our Travel Values</div><div class="section-sub">What makes T4P different</div></div></div>
+      <svg class="chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="values-card">
+        <div class="values-title">Travel with purpose 🌍</div>
+        <div class="value-row"><div class="value-emoji">🦒</div><div class="value-text"><strong>Wildlife first.</strong> We never go off-road. We respect wildlife distances and leave no trace.</div></div>
+        <div class="value-row"><div class="value-emoji">🤝</div><div class="value-text"><strong>Community impact.</strong> Every trip directly benefits local guides, families and businesses.</div></div>
+        <div class="value-row"><div class="value-emoji">🎁</div><div class="value-text"><strong>Give something back.</strong> Each safari guest receives a happiness bag to donate to someone on the road.</div></div>
+        <div class="value-row"><div class="value-emoji">🌱</div><div class="value-text"><strong>No negative footprint.</strong> We curate experiences that help, never harm, the communities we visit.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEW 4: Feedback Section -->
+  <div class="section-card" id="feedbackCard">
+    <div class="section-head open" onclick="toggle(this)">
+      <div class="section-head-left"><div class="section-icon" style="background:var(--orange-lt)">⭐</div><div><div class="section-title">Share Your Experience</div><div class="section-sub">Help us create more magic</div></div></div>
+      <div style="display:flex;align-items:center;gap:8px"><span class="section-badge badge-purple">Earn a reward</span><svg class="chevron open" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="section-body open">
+      <div class="feedback-hero">
+        <div class="feedback-icon">🎁</div>
+        <div>
+          <div class="feedback-title">Your feedback = your next discount</div>
+          <div class="feedback-sub">Fill in this quick feedback and receive a 10% discount code for your next T4P booking — valid for 12 months.</div>
+          <div class="incentive-badge">🧡 10% off your next trip</div>
+        </div>
+      </div>
+
+      <div id="feedbackForm">
+        <div class="feedback-q">
+          <div class="feedback-q-label">Overall, how was your experience with Travel4Purpose?</div>
+          <div class="stars-row" id="starsRow">
+            <button class="star-btn" onclick="rateStar(1)">⭐</button>
+            <button class="star-btn" onclick="rateStar(2)">⭐</button>
+            <button class="star-btn" onclick="rateStar(3)">⭐</button>
+            <button class="star-btn" onclick="rateStar(4)">⭐</button>
+            <button class="star-btn" onclick="rateStar(5)">⭐</button>
+          </div>
+          <div class="star-label" id="starLabel">Tap to rate</div>
+        </div>
+
+        <div class="feedback-q">
+          <div class="feedback-q-label">What did you love most? (select all that apply)</div>
+          <div class="feedback-options">
+            <div class="feedback-opt" onclick="toggleOpt(this)">🦒 Wildlife experiences</div>
+            <div class="feedback-opt" onclick="toggleOpt(this)">🍛 Food & local culture</div>
+            <div class="feedback-opt" onclick="toggleOpt(this)">🤝 Local guides</div>
+            <div class="feedback-opt" onclick="toggleOpt(this)">🏨 Accommodation</div>
+            <div class="feedback-opt" onclick="toggleOpt(this)">📱 Communication with Sham</div>
+            <div class="feedback-opt" onclick="toggleOpt(this)">🌱 The impact focus</div>
+            <div class="feedback-opt" onclick="toggleOpt(this)">✨ The unexpected moments</div>
+          </div>
+        </div>
+
+        <div class="feedback-q">
+          <div class="feedback-q-label">Would you recommend Travel4Purpose? Why?</div>
+          <textarea class="feedback-textarea" placeholder="Tell us in your own words — this helps future travellers find us too..."></textarea>
+        </div>
+
+        <div class="feedback-q">
+          <div class="feedback-q-label">Anything we could improve?</div>
+          <textarea class="feedback-textarea" placeholder="Honest feedback makes us better. No hard feelings!"></textarea>
+        </div>
+
+        <button class="submit-feedback-btn" onclick="submitFeedback()">Submit & claim my 10% discount 🧡</button>
+      </div>
+
+      <div class="feedback-success" id="feedbackSuccess" style="display:none">
+        <div class="feedback-success-icon">🎉</div>
+        <div class="feedback-success-title">Thank you, Emily!</div>
+        <div class="feedback-success-sub">Your feedback has been sent to Sham. Your discount code is on its way to your email.</div>
+        <div class="reward-card">
+          <div class="reward-icon">🎁</div>
+          <div>
+            <div class="reward-title">Your 10% discount code</div>
+            <div class="reward-code">Use <strong>EMILY10</strong> on your next T4P booking — valid until July 2027</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Sticky CTA -->
+<div class="sticky-cta">
+  <div class="sticky-cta-text"><strong>Questions? We're here.</strong>Sham & the T4P team</div>
+  <button class="sticky-wa-btn" onclick="alert('Opens WhatsApp with T4P team')">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+    Chat on WhatsApp
+  </button>
+</div>
+
+<script>
+function toggle(head){
+  const body=head.nextElementSibling;
+  const chevron=head.querySelector('.chevron');
+  const isOpen=body.classList.contains('open');
+  body.classList.toggle('open',!isOpen);
+  head.classList.toggle('open',!isOpen);
+  chevron.classList.toggle('open',!isOpen);
+}
+function toggleDay(head){
+  const body=head.nextElementSibling;
+  body.classList.toggle('open');
+  head.classList.toggle('open');
+}
+function switchItin(tab,name){
+  document.querySelectorAll('.itin-tab').forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  document.querySelectorAll('.itin-view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('itin-'+name).classList.add('active');
+}
+function checkItem(el){
+  el.classList.toggle('checked');
+  el.innerHTML=el.classList.contains('checked')?'<svg width="10" height="10" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>':'';
+}
+function handleFiles(files){
+  const list=document.getElementById('docList');
+  Array.from(files).forEach(f=>{
+    const item=document.createElement('div');
+    item.className='doc-item';
+    item.innerHTML=`<div class="doc-item-icon">📄</div><div class="doc-item-name">${f.name}</div><span class="doc-item-status doc-status-uploaded">Uploaded ✓</span><button class="doc-remove" onclick="this.parentElement.remove()">✕</button>`;
+    list.appendChild(item);
+  });
+}
+function handleDrop(e){
+  e.preventDefault();
+  document.getElementById('uploadArea').classList.remove('drag');
+  handleFiles(e.dataTransfer.files);
+}
+const starLabels=['','Poor — we want to do better','Could be better','Good trip!','Really loved it!','Absolutely magical! 🌍'];
+let currentRating=0;
+function rateStar(n){
+  currentRating=n;
+  document.querySelectorAll('.star-btn').forEach((s,i)=>s.classList.toggle('active',i<n));
+  document.getElementById('starLabel').textContent=starLabels[n];
+}
+function toggleOpt(el){el.classList.toggle('selected');}
+function submitFeedback(){
+  document.getElementById('feedbackForm').style.display='none';
+  document.getElementById('feedbackSuccess').style.display='block';
+  document.getElementById('feedbackCard').scrollIntoView({behavior:'smooth'});
+}
+// Open first day card by default
+const firstDay = document.querySelector('.day-card-head');
+if(firstDay) toggleDay(firstDay);
+</script>
+</body>
+</html>
