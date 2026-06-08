@@ -3,853 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Travel4Purpose × IE MBA — Pre-Meeting Form</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Travel4Purpose — Platform Mockups</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; font-family: 'DM Sans', sans-serif; background: #FFFFFF; }
 
-  :root {
-    --green-dark:  #1B3A2D;
-    --green-mid:   #2C5F45;
-    --green-light: #E8F0EB;
-    --teal:        #0D9488;
-    --teal-lt:     #CCFBF1;
-    --amber:       #D97706;
-    --amber-lt:    #FEF3C7;
-    --sand:        #F7F3EE;
-    --white:       #FFFFFF;
-    --body:        #374151;
-    --muted:       #6B7280;
-    --border:      #E5E7EB;
-  }
+.nav {
+  height: 52px;
+  background: #0A0A0A;
+  border-bottom: 1px solid #E7E2DA;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 6px;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 9999;
+}
+.nav-logo { display: flex; align-items: center; gap: 8px; margin-right: 12px; }
+.nav-icon {
+  width: 28px; height: 28px;
+  background: #E8631A;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800; font-size: 11px; color: #fff;
+}
+.nav-brand { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; color: #fff; }
+.nav-sep { width: 1px; height: 20px; background: #E7E2DA; margin: 0 10px; }
+.nav-tag { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #78716C; margin-right: 6px; }
 
-  html { scroll-behavior: smooth; }
+.tab {
+  display: flex; align-items: center; gap: 7px;
+  padding: 6px 14px;
+  border-radius: 7px;
+  font-size: 12px; font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+  transition: all .15s;
+  white-space: nowrap;
+  font-family: 'DM Sans', sans-serif;
+}
+.tab:hover { background: #F5F1EB; color: #1C1917; border-color: #E7E2DA; }
+.tab.active { background: #E8631A; color: #fff; border-color: #E8631A; }
+.tab-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--sand);
-    color: var(--body);
-    font-size: 15px;
-    line-height: 1.65;
-    min-height: 100vh;
-  }
+.nav-spacer { flex: 1; }
+.nav-version { font-size: 10px; color: #A8A29E; }
 
-  /* Top bar */
-  .topbar {
-    background: var(--green-dark);
-    padding: 14px 0;
-    text-align: center;
-  }
-  .topbar-inner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-  }
-  .topbar span {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: #A7C4B5;
-  }
-  .topbar-dot {
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    background: var(--teal);
-  }
+.frame-wrap {
+  position: fixed;
+  top: 52px; left: 0; right: 0; bottom: 0;
+}
+iframe {
+  width: 100%; height: 100%;
+  border: none;
+  display: none;
+}
+iframe.active { display: block; }
 
-  /* Hero */
-  .hero {
-    background: var(--green-dark);
-    padding: 56px 24px 48px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 60% 60% at 50% 100%, rgba(13,148,136,.18) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-eyebrow {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--teal);
-    border: 1px solid rgba(13,148,136,.4);
-    padding: 4px 12px;
-    border-radius: 99px;
-    margin-bottom: 20px;
-  }
-  .hero h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(28px, 5vw, 44px);
-    color: var(--white);
-    line-height: 1.15;
-    max-width: 640px;
-    margin: 0 auto 16px;
-  }
-  .hero p {
-    font-size: 15px;
-    color: #A7C4B5;
-    max-width: 520px;
-    margin: 0 auto 28px;
-    font-weight: 300;
-  }
-  .hero-meta {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-  .hero-meta-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    color: #6B9E88;
-  }
-  .hero-meta-item svg { opacity: .7; }
+@media (max-width: 768px) {
+  .nav { padding: 0 12px; gap: 4px; height: 48px; }
+  .nav-sep, .nav-tag, .nav-version { display: none; }
+  .nav-brand { font-size: 12px; }
+  .nav-icon { width: 24px; height: 24px; font-size: 10px; }
+  .tab { padding: 5px 10px; font-size: 11px; gap: 5px; }
+  .tab-dot { width: 5px; height: 5px; }
+  .frame-wrap { top: 48px; }
+}
 
-  /* Progress */
-  .progress-wrap {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    padding: 14px 24px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .progress-inner {
-    max-width: 720px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .progress-label {
-    font-size: 12px;
-    color: var(--muted);
-    white-space: nowrap;
-    font-weight: 500;
-  }
-  .progress-bar {
-    flex: 1;
-    height: 4px;
-    background: var(--border);
-    border-radius: 99px;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    background: var(--teal);
-    border-radius: 99px;
-    transition: width .4s ease;
-    width: 0%;
-  }
-  .progress-count {
-    font-size: 12px;
-    color: var(--teal);
-    font-weight: 600;
-    white-space: nowrap;
-  }
-
-  /* Main content */
-  .main {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 40px 24px 80px;
-  }
-
-  /* Section */
-  .section {
-    margin-bottom: 40px;
-  }
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-    padding-bottom: 12px;
-    border-bottom: 1.5px solid var(--green-dark);
-  }
-  .section-num {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    background: var(--green-dark);
-    color: var(--white);
-    font-size: 12px;
-    font-weight: 600;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .section-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 18px;
-    color: var(--green-dark);
-  }
-  .section-note {
-    font-size: 12px;
-    color: var(--muted);
-    margin-left: auto;
-    font-style: italic;
-  }
-
-  /* Question card */
-  .q-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 22px 24px;
-    margin-bottom: 14px;
-    transition: border-color .2s, box-shadow .2s;
-  }
-  .q-card:focus-within {
-    border-color: var(--teal);
-    box-shadow: 0 0 0 3px rgba(13,148,136,.08);
-  }
-  .q-label {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--green-dark);
-    margin-bottom: 6px;
-    display: block;
-  }
-  .q-hint {
-    font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 14px;
-    font-style: italic;
-  }
-
-  /* Text inputs */
-  textarea, input[type="text"], input[type="email"] {
-    width: 100%;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    color: var(--body);
-    background: var(--sand);
-    resize: vertical;
-    outline: none;
-    transition: border-color .2s;
-  }
-  textarea:focus, input[type="text"]:focus, input[type="email"]:focus {
-    border-color: var(--teal);
-    background: var(--white);
-  }
-  textarea { min-height: 80px; }
-
-  /* Radio / checkbox options */
-  .options-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .opt-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 14px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: border-color .2s, background .2s;
-    user-select: none;
-  }
-  .opt-item:hover { border-color: var(--teal); background: var(--green-light); }
-  .opt-item input { display: none; }
-  .opt-item.selected {
-    border-color: var(--teal);
-    background: var(--teal-lt);
-  }
-  .opt-check {
-    width: 18px; height: 18px;
-    border: 1.5px solid var(--border);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    transition: border-color .2s, background .2s;
-  }
-  .opt-item.selected .opt-check {
-    border-color: var(--teal);
-    background: var(--teal);
-  }
-  .opt-check-inner {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--white);
-    opacity: 0;
-    transition: opacity .15s;
-  }
-  .opt-item.selected .opt-check-inner { opacity: 1; }
-  .opt-text { font-size: 14px; color: var(--body); }
-
-  /* Ranking list */
-  .rank-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .rank-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 11px 14px;
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    cursor: grab;
-    transition: box-shadow .2s, border-color .2s, transform .15s;
-    user-select: none;
-  }
-  .rank-item:active { cursor: grabbing; }
-  .rank-item.dragging {
-    box-shadow: 0 8px 24px rgba(0,0,0,.12);
-    border-color: var(--teal);
-    transform: scale(1.01);
-    z-index: 10;
-    position: relative;
-  }
-  .rank-item.drag-over {
-    border-color: var(--teal);
-    background: var(--green-light);
-  }
-  .rank-num {
-    width: 26px; height: 26px;
-    border-radius: 6px;
-    background: var(--green-dark);
-    color: var(--white);
-    font-size: 12px;
-    font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    transition: background .2s;
-  }
-  .rank-num.top { background: var(--teal); }
-  .rank-num.second { background: var(--green-mid); }
-  .rank-drag {
-    display: flex; flex-direction: column; gap: 3px;
-    margin-left: auto; opacity: .35;
-  }
-  .rank-drag span {
-    display: block; width: 16px; height: 2px;
-    background: var(--body); border-radius: 1px;
-  }
-  .rank-text { font-size: 13.5px; color: var(--body); flex: 1; }
-  .rank-emoji { font-size: 16px; width: 22px; text-align: center; }
-
-  /* Info box */
-  .info-box {
-    background: var(--amber-lt);
-    border: 1px solid #FDE68A;
-    border-radius: 10px;
-    padding: 14px 18px;
-    display: flex;
-    gap: 12px;
-    margin-bottom: 14px;
-  }
-  .info-box-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-  .info-box p { font-size: 13px; color: #92400E; line-height: 1.55; }
-
-  /* Submit */
-  .submit-wrap {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 28px 24px;
-    text-align: center;
-    margin-top: 40px;
-  }
-  .submit-wrap h3 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 20px;
-    color: var(--green-dark);
-    margin-bottom: 8px;
-  }
-  .submit-wrap p {
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 20px;
-  }
-  .btn-submit {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--green-dark);
-    color: var(--white);
-    border: none;
-    border-radius: 8px;
-    padding: 13px 32px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background .2s, transform .15s;
-    letter-spacing: .02em;
-  }
-  .btn-submit:hover { background: var(--green-mid); transform: translateY(-1px); }
-  .btn-submit:active { transform: translateY(0); }
-
-  /* Thank you state */
-  .thankyou {
-    display: none;
-    text-align: center;
-    padding: 60px 24px;
-  }
-  .thankyou.visible { display: block; }
-  .thankyou-icon {
-    width: 64px; height: 64px;
-    border-radius: 50%;
-    background: var(--teal-lt);
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 20px;
-    font-size: 28px;
-  }
-  .thankyou h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 28px;
-    color: var(--green-dark);
-    margin-bottom: 10px;
-  }
-  .thankyou p { font-size: 14px; color: var(--muted); max-width: 420px; margin: 0 auto; }
-
-  /* Footer */
-  .footer {
-    text-align: center;
-    padding: 24px;
-    font-size: 11px;
-    color: var(--muted);
-    border-top: 1px solid var(--border);
-  }
-
-  @media (max-width: 600px) {
-    .hero { padding: 40px 16px 36px; }
-    .main { padding: 28px 16px 60px; }
-    .q-card { padding: 18px; }
-  }
 </style>
 </head>
 <body>
 
-<!-- Top bar -->
-<div class="topbar">
-  <div class="topbar-inner">
-    <span>Travel4Purpose</span>
-    <div class="topbar-dot"></div>
-    <span>IE Business School — Impact Project</span>
-    <div class="topbar-dot"></div>
-    <span>May 2026</span>
+<nav class="nav">
+  <div class="nav-logo">
+    <img src="data:image/png;base64,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" alt="T4P" style="width:28px;height:28px;border-radius:50%;object-fit:cover;">
+    <span class="nav-brand">Travel4Purpose</span>
   </div>
-</div>
+  <div class="nav-sep"></div>
+  <span class="nav-tag">Platform Mockups</span>
 
-<!-- Hero -->
-<div class="hero">
-  <div class="hero-eyebrow">Pre-Meeting Form</div>
-  <h1>Help us make our time together count</h1>
-  <p>Before our next session, we'd love to understand your priorities better. This should take no more than 10 minutes.</p>
-  <div class="hero-meta">
-    <div class="hero-meta-item">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-      ~10 minutes
-    </div>
-    <div class="hero-meta-item">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      7 questions
-    </div>
-    <div class="hero-meta-item">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-      Confidential
-    </div>
-  </div>
-</div>
+  <button class="tab active" onclick="show('dashboard', this)">
+    <span class="tab-dot" style="background:#E8631A"></span>
+    Team Dashboard
+  </button>
+  <button class="tab" onclick="show('client', this)">
+    <span class="tab-dot" style="background:#22C55E"></span>
+    Client View
+  </button>
+  <button class="tab" onclick="show('partner', this)">
+    <span class="tab-dot" style="background:#3B82F6"></span>
+    Guide Portal
+  </button>
 
-<!-- Progress -->
-<div class="progress-wrap">
-  <div class="progress-inner">
-    <span class="progress-label">Your progress</span>
-    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-    <span class="progress-count" id="progressCount">0 / 7</span>
-  </div>
-</div>
+  <div class="nav-spacer"></div>
+  <span class="nav-version">v1.0 · May 2026 · IE MBA × Travel4Purpose</span>
+</nav>
 
-<!-- Main form -->
-<div class="main" id="formArea">
-
-  <!-- Section 1: Validation -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-num">1</div>
-      <span class="section-title">Validating our understanding</span>
-      <span class="section-note">1 question</span>
-    </div>
-
-    <div class="info-box">
-      <div class="info-box-icon">💡</div>
-      <p>Based on our kickoff meeting, we put together a summary of Travel4Purpose. We want to make sure we have it right before proposing anything.</p>
-    </div>
-
-    <div class="q-card" data-qid="1">
-      <label class="q-label">Q1. Does this summary of Travel4Purpose match your reality?</label>
-      <p class="q-hint">Kenya-based sustainable travel company, ~6 years old, offering safaris, day trips, itineraries and special occasions. Strong word-of-mouth conversion (14–40%). Small team: owner + 1 assistant. All operations managed through Notion, Google Sheets, and WhatsApp. Budget for new tools: ~€40–60 one-time + €5/month max.</p>
-      <div class="options-grid" data-type="radio" data-name="q1">
-        <label class="opt-item" onclick="selectOpt(this)">
-          <div class="opt-check"><div class="opt-check-inner"></div></div>
-          <span class="opt-text">✅ Yes, this is accurate</span>
-        </label>
-        <label class="opt-item" onclick="selectOpt(this)">
-          <div class="opt-check"><div class="opt-check-inner"></div></div>
-          <span class="opt-text">⚠️ Mostly, but some details need updating</span>
-        </label>
-        <label class="opt-item" onclick="selectOpt(this)">
-          <div class="opt-check"><div class="opt-check-inner"></div></div>
-          <span class="opt-text">❌ No, please let me correct it below</span>
-        </label>
-      </div>
-      <textarea style="margin-top:10px" placeholder="Any corrections or additions? (optional)" oninput="updateProgress()"></textarea>
-    </div>
-  </div>
-
-  <!-- Section 2: Pain Prioritization -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-num">2</div>
-      <span class="section-title">Prioritising your current challenges</span>
-      <span class="section-note">2 questions</span>
-    </div>
-
-    <div class="info-box">
-      <div class="info-box-icon">🎯</div>
-      <p>This is the most important section. Your answers will directly shape what we build for you. Please be as honest as possible — there are no wrong answers.</p>
-    </div>
-
-    <div class="q-card" data-qid="2">
-      <label class="q-label">Q2. Drag to rank your biggest operational challenges — most painful at the top</label>
-      <p class="q-hint">Drag and drop to reorder. Put your #1 pain at the top.</p>
-      <div class="rank-list" id="rankList">
-        <div class="rank-item" draggable="true" data-id="a">
-          <div class="rank-num">1</div>
-          <span class="rank-emoji">📋</span>
-          <span class="rank-text">Managing bookings manually (Google Sheets, calendar updates)</span>
-          <div class="rank-drag"><span></span><span></span><span></span></div>
-        </div>
-        <div class="rank-item" draggable="true" data-id="b">
-          <div class="rank-num">2</div>
-          <span class="rank-emoji">📱</span>
-          <span class="rank-text">Over-reliance on WhatsApp for all communication</span>
-          <div class="rank-drag"><span></span><span></span><span></span></div>
-        </div>
-        <div class="rank-item" draggable="true" data-id="c">
-          <div class="rank-num">3</div>
-          <span class="rank-emoji">🗓️</span>
-          <span class="rank-text">Checking guide and partner availability manually</span>
-          <div class="rank-drag"><span></span><span></span><span></span></div>
-        </div>
-        <div class="rank-item" draggable="true" data-id="d">
-          <div class="rank-num">4</div>
-          <span class="rank-emoji">👤</span>
-          <span class="rank-text">Clients have no visibility into their booking status</span>
-          <div class="rank-drag"><span></span><span></span><span></span></div>
-        </div>
-        <div class="rank-item" draggable="true" data-id="e">
-          <div class="rank-num">5</div>
-          <span class="rank-emoji">💰</span>
-          <span class="rank-text">Rate sheets from lodges are complex and change frequently</span>
-          <div class="rank-drag"><span></span><span></span><span></span></div>
-        </div>
-        <div class="rank-item" draggable="true" data-id="f">
-          <div class="rank-num">6</div>
-          <span class="rank-emoji">📣</span>
-          <span class="rank-text">Inconsistent or time-consuming social media presence</span>
-          <div class="rank-drag"><span></span><span></span><span></span></div>
-        </div>
-        <div class="rank-item" draggable="true" data-id="g">
-          <div class="rank-num">7</div>
-          <span class="rank-emoji">🌐</span>
-          <span class="rank-text">Website doesn't convert visitors into enquiries effectively</span>
-          <div class="rank-drag"><span></span><span></span><span></span></div>
-        </div>
-      </div>
-      <textarea style="margin-top:14px" placeholder="Is there a challenge not listed above? Please describe it here..." oninput="updateProgress()"></textarea>
-    </div>
-
-    <div class="q-card" data-qid="3">
-      <label class="q-label">Q3. Where is the biggest pain right now — inside operations, or in how clients experience the booking?</label>
-      <p class="q-hint">Be honest — this shapes the entire direction of our project.</p>
-      <div class="options-grid" data-type="radio" data-name="q3">
-        <label class="opt-item" onclick="selectOpt(this)">
-          <div class="opt-check"><div class="opt-check-inner"></div></div>
-          <span class="opt-text">🏗️ Internal operations — the manual work is unsustainable</span>
-        </label>
-        <label class="opt-item" onclick="selectOpt(this)">
-          <div class="opt-check"><div class="opt-check-inner"></div></div>
-          <span class="opt-text">👥 Client experience — clients lack visibility and a professional touchpoint</span>
-        </label>
-        <label class="opt-item" onclick="selectOpt(this)">
-          <div class="opt-check"><div class="opt-check-inner"></div></div>
-          <span class="opt-text">⚖️ Both equally — I can't separate them</span>
-        </label>
-        <label class="opt-item" onclick="selectOpt(this)">
-          <div class="opt-check"><div class="opt-check-inner"></div></div>
-          <span class="opt-text">📣 Neither — the main issue is attracting more clients</span>
-        </label>
-      </div>
-    </div>
-  </div>
-
-  <!-- Section 3: Operations data -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-num">3</div>
-      <span class="section-title">Operational context</span>
-      <span class="section-note">2 questions</span>
-    </div>
-
-    <div class="q-card" data-qid="4">
-      <label class="q-label">Q4. Roughly how many bookings do you handle per month, by type?</label>
-      <p class="q-hint">Approximate numbers are fine — we just need a sense of scale.</p>
-      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom:10px">
-        <div>
-          <div style="font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:500">Day trips</div>
-          <input type="text" placeholder="e.g. 8–10 / month" oninput="updateProgress()">
-        </div>
-        <div>
-          <div style="font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:500">Personalised itineraries</div>
-          <input type="text" placeholder="e.g. 3–5 / month" oninput="updateProgress()">
-        </div>
-        <div>
-          <div style="font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:500">Safaris</div>
-          <input type="text" placeholder="e.g. 2–3 / month" oninput="updateProgress()">
-        </div>
-        <div>
-          <div style="font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:500">OTA bookings (GetYourGuide, Viator)</div>
-          <input type="text" placeholder="e.g. 5 / month" oninput="updateProgress()">
-        </div>
-      </div>
-    </div>
-
-    <div class="q-card" data-qid="5">
-      <label class="q-label">Q5. On average, how many manual steps does your team take per booking — from enquiry to trip completion?</label>
-      <p class="q-hint">Think about all the back-and-forth: form review, guide check, sheet update, calendar sync, WhatsApp messages, payment follow-up, etc.</p>
-      <div class="options-grid" data-type="radio" data-name="q5">
-        <label class="opt-item" onclick="selectOpt(this)">
-          <div class="opt-check"><div class="opt-check-inner"></div></div>
-          <span class="opt-text">1–5 steps</span>
-        </label>
-        <label class="opt-item" onclick="selectOpt(this)">
-          <div class="opt-check"><div class="opt-check-inner"></div></div>
-          <span class="opt-text">6–10 steps</span>
-        </label>
-        <label class="opt-item" onclick="selectOpt(this)">
-          <div class="opt-check"><div class="opt-check-inner"></div></div>
-          <span class="opt-text">11–20 steps</span>
-        </label>
-        <label class="opt-item" onclick="selectOpt(this)">
-          <div class="opt-check"><div class="opt-check-inner"></div></div>
-          <span class="opt-text">20+ steps — it's a lot</span>
-        </label>
-      </div>
-    </div>
-  </div>
-
-  <!-- Section 4: Success definition -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-num">4</div>
-      <span class="section-title">Defining success</span>
-      <span class="section-note">2 questions</span>
-    </div>
-
-    <div class="q-card" data-qid="6">
-      <label class="q-label">Q6. What would make this project a clear success for you?</label>
-      <p class="q-hint">Be as specific as possible. Examples: "I spend less than 1 hour per booking on admin", "Clients stop asking me for trip details on WhatsApp", "I can handle 2x more bookings without hiring."</p>
-      <textarea placeholder="Describe your ideal outcome in your own words..." oninput="updateProgress()"></textarea>
-    </div>
-
-    <div class="q-card" data-qid="7">
-      <label class="q-label">Q7. Is there anything we should know before the meeting — a constraint, a concern, or something you've already tried that didn't work?</label>
-      <p class="q-hint">This is your space to share anything that hasn't come up yet.</p>
-      <textarea placeholder="Any context that would help us prepare better..." oninput="updateProgress()"></textarea>
-    </div>
-  </div>
-
-  <!-- Submit -->
-  <div class="submit-wrap">
-    <h3>You're all set 🌍</h3>
-    <p>Thank you for taking the time to complete this. We'll review your answers before our meeting and come prepared with a focused proposal.</p>
-    <button class="btn-submit" onclick="handleSubmit()">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
-      Submit my answers
-    </button>
-  </div>
-
-</div>
-
-<!-- Thank you -->
-<div class="thankyou" id="thankyou">
-  <div class="thankyou-icon">✅</div>
-  <h2>Thank you, Sham!</h2>
-  <p>We've received your answers and will review them before our meeting. See you soon — this is going to be a great session.</p>
-  <p style="margin-top:16px; font-size:12px;">— Banda, Jonathan & Fernando</p>
-</div>
-
-<!-- Footer -->
-<div class="footer">
-  Travel4Purpose × IE Business School Impact Project · May 2026 · Confidential
+<div class="frame-wrap">
+  <iframe id="frame-dashboard" class="active" src="t4p-dashboard.html"></iframe>
+  <iframe id="frame-client"    src="t4p-client-view.html"></iframe>
+  <iframe id="frame-partner"   src="t4p-partner-view.html"></iframe>
 </div>
 
 <script>
-  // Progress tracking
-  const totalQ = 7;
-  function updateProgress() {
-    let answered = 0;
-    // Radio/select questions
-    document.querySelectorAll('.q-card').forEach(card => {
-      const qid = card.dataset.qid;
-      const hasRadio = card.querySelector('.opt-item.selected');
-      const textareas = card.querySelectorAll('textarea');
-      const inputs = card.querySelectorAll('input[type="text"]');
-      let filled = false;
-      if (hasRadio) filled = true;
-      textareas.forEach(t => { if (t.value.trim()) filled = true; });
-      inputs.forEach(inp => { if (inp.value.trim()) filled = true; });
-      // Q2 is always "answered" once they see it (ranking)
-      if (qid === '2') filled = true;
-      if (filled) answered++;
-    });
-    const pct = Math.round((answered / totalQ) * 100);
-    document.getElementById('progressFill').style.width = pct + '%';
-    document.getElementById('progressCount').textContent = answered + ' / ' + totalQ;
-  }
-
-  // Radio selection
-  function selectOpt(el) {
-    const grid = el.closest('.options-grid');
-    grid.querySelectorAll('.opt-item').forEach(o => o.classList.remove('selected'));
-    el.classList.add('selected');
-    updateProgress();
-  }
-
-  // Drag-and-drop ranking
-  const rankList = document.getElementById('rankList');
-  let dragSrc = null;
-
-  rankList.addEventListener('dragstart', e => {
-    dragSrc = e.target.closest('.rank-item');
-    dragSrc.classList.add('dragging');
-    e.dataTransfer.effectAllowed = 'move';
+function show(name, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  ['dashboard','client','partner'].forEach(p => {
+    document.getElementById('frame-' + p).classList.toggle('active', p === name);
   });
-  rankList.addEventListener('dragend', e => {
-    document.querySelectorAll('.rank-item').forEach(i => {
-      i.classList.remove('dragging', 'drag-over');
-    });
-    updateRankNumbers();
-    updateProgress();
-  });
-  rankList.addEventListener('dragover', e => {
-    e.preventDefault();
-    const target = e.target.closest('.rank-item');
-    if (target && target !== dragSrc) {
-      document.querySelectorAll('.rank-item').forEach(i => i.classList.remove('drag-over'));
-      target.classList.add('drag-over');
-      const rect = target.getBoundingClientRect();
-      const mid = rect.top + rect.height / 2;
-      if (e.clientY < mid) {
-        rankList.insertBefore(dragSrc, target);
-      } else {
-        rankList.insertBefore(dragSrc, target.nextSibling);
-      }
-    }
-  });
-
-  function updateRankNumbers() {
-    rankList.querySelectorAll('.rank-item').forEach((item, i) => {
-      const num = item.querySelector('.rank-num');
-      num.textContent = i + 1;
-      num.classList.remove('top', 'second');
-      if (i === 0) num.classList.add('top');
-      else if (i === 1) num.classList.add('second');
-    });
-  }
-
-  // Submit — sends to Formspree
-  async function handleSubmit() {
-    const btn = document.querySelector('.btn-submit');
-    btn.disabled = true;
-    btn.innerHTML = '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Sending...';
-
-    // Collect all answers
-    const data = new FormData();
-
-    // Q1
-    const q1 = document.querySelector('[data-name="q1"] .selected .opt-text');
-    data.append('Q1 - Summary accurate?', q1 ? q1.textContent.trim() : 'Not answered');
-    const q1text = document.querySelectorAll('[data-qid="1"] textarea')[0];
-    data.append('Q1 - Corrections', q1text ? q1text.value.trim() : '');
-
-    // Q2 - Ranking order
-    const rankItems = document.querySelectorAll('#rankList .rank-item .rank-text');
-    rankItems.forEach((item, i) => {
-      data.append(`Q2 - Pain #${i + 1}`, item.textContent.trim());
-    });
-    const q2extra = document.querySelectorAll('[data-qid="2"] textarea')[0];
-    data.append('Q2 - Other challenges', q2extra ? q2extra.value.trim() : '');
-
-    // Q3
-    const q3 = document.querySelector('[data-name="q3"] .selected .opt-text');
-    data.append('Q3 - Biggest pain area', q3 ? q3.textContent.trim() : 'Not answered');
-    const q3text = document.querySelectorAll('[data-qid="3"] textarea')[0];
-    data.append('Q3 - Additional context', q3text ? q3text.value.trim() : '');
-
-    // Q4 - booking volumes
-    const q4inputs = document.querySelectorAll('[data-qid="4"] input[type="text"]');
-    const q4labels = ['Day trips', 'Personalised itineraries', 'Safaris', 'OTA bookings'];
-    q4inputs.forEach((inp, i) => data.append(`Q4 - ${q4labels[i]}`, inp.value.trim()));
-
-    // Q5
-    const q5 = document.querySelector('[data-name="q5"] .selected .opt-text');
-    data.append('Q5 - Manual steps per booking', q5 ? q5.textContent.trim() : 'Not answered');
-
-    // Q6 & Q7
-    const q6 = document.querySelectorAll('[data-qid="6"] textarea')[0];
-    data.append('Q6 - Definition of success', q6 ? q6.value.trim() : '');
-    const q7 = document.querySelectorAll('[data-qid="7"] textarea')[0];
-    data.append('Q7 - Constraints or concerns', q7 ? q7.value.trim() : '');
-
-    try {
-      const res = await fetch('https://formspree.io/f/xlgzzlrl', {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (res.ok) {
-        document.getElementById('formArea').style.display = 'none';
-        document.getElementById('thankyou').classList.add('visible');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        btn.disabled = false;
-        btn.innerHTML = '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg> Try again';
-        alert('Something went wrong. Please try again or contact us on WhatsApp.');
-      }
-    } catch (err) {
-      btn.disabled = false;
-      btn.innerHTML = '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg> Try again';
-      alert('Connection error. Please check your internet and try again.');
-    }
-  }
-
-  // Init
-  updateProgress();
-  updateRankNumbers();
+}
 </script>
 </body>
 </html>
